@@ -3,6 +3,13 @@ package com.xyz.abc.sort;
 import org.junit.Assert;
 import org.junit.Test;
 
+/**
+ * time complex: worst O(n^2) average O(nlog2^n) space complex: O(nlog2^2)
+ * 即函数递归调用的次数*1
+ * 
+ * @author heyubo
+ * 
+ */
 public class QuickSort {
 
 	// 算法思想：是包含有冒泡的思想，每一次将比基点小的数字放在左边，比基点大的放在右边；
@@ -11,23 +18,35 @@ public class QuickSort {
 	public QuickSort() {
 	}
 
+	/**
+	 * 一次划分
+	 * 
+	 * @param src
+	 *            需要排序的数组
+	 * @param low
+	 *            最小index
+	 * @param high
+	 *            最大index
+	 * @return pivot的最后位置
+	 */
 	public int partion(int[] src, int low, int high) {
 		int pivotIndex = low;
 		int pivot = src[pivotIndex];
 
 		while (low < high) {
 
-			while (src[high] > pivot && high > low) {
+			//高位扫描
+			while (src[high] > pivot && high > low) 
 				high--;
-			}
-			if (low < high) {
 
+			if (low < high) {
 				src[pivotIndex] = src[high];
 				// src[high] = pivot;
 				pivotIndex = high;
 				low++;
 			}
 
+			//低位扫描
 			while (src[low] < pivot && low < high)
 				low++;
 			if (low < high) {
@@ -36,12 +55,19 @@ public class QuickSort {
 				pivotIndex = low;
 				high--;
 			}
+			//一次高位和低位扫描之后再放置支点(待比较的元素)的位置
 			src[pivotIndex] = pivot;
 		}
 
 		return pivotIndex;
 	}
 
+	/**
+	 * 快排
+	 * @param src
+	 * @param low
+	 * @param high
+	 */
 	public void quickSort(int[] src, int low, int high) {
 
 		if (low >= high || high < 0)

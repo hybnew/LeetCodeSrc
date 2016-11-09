@@ -1,4 +1,4 @@
-package com.xyz.abc;
+package com.xyz.abc.concurrent;
 
 import java.util.concurrent.Exchanger;
 import java.util.concurrent.ExecutorService;
