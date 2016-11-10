@@ -1,4 +1,4 @@
-package com.xyz.abc.sort;
+package com.xyz.abc.util;
 
 import org.junit.Assert;
 import org.junit.Test;

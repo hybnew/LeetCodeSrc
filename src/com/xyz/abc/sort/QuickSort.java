@@ -7,6 +7,7 @@ import org.junit.Test;
  * time complex: worst O(n^2) average O(nlog2^n) space complex: O(nlog2^2)
  * 即函数递归调用的次数*1
  * 
+ * Unstable sort
  * @author heyubo
  * 
  */

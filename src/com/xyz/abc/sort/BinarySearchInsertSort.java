@@ -13,7 +13,7 @@ public class BinarySearchInsertSort {
 	 *         <p>
 	 *         特点:
 	 *         </p>
-	 *         1. 插入排序是不稳定的排序 <br>
+	 *         1. 插入排序是稳定的排序 <br>
 	 *         2.每一次循环不能保证插入到有序列表的元素放置到了最终位置 <br>
 	 *         3.time complex : worst O(n^2) best O(n) avg O(n^2) <br>
 	 *         4.space complex: O(1)
@@ -29,16 +29,17 @@ public class BinarySearchInsertSort {
 		if (src.length <= 1)
 			return;
 		int i, j, temp;
-
 		temp = src[0];
 
-		for (i = 1; i < src.length; i++) {// 第一个元素为有序，sorting from second
-											// element
+		for (i = 1; i < src.length; i++) {
+			// 第一个元素为有序，sorting from second element
 			j = i - 1;
 
 			int pos = binarySearch(src, 0, j, src[i]);
 			temp = src[i];
-			src[i] = src[pos];
+			for (int k = i - 1; k >= pos; k--) {
+				src[k + 1] = src[k];
+			}
 			src[pos] = temp;
 		}
 	}
@@ -61,34 +62,35 @@ public class BinarySearchInsertSort {
 	public static int binarySearch(int[] src, int low, int high, int e) {
 		int m = -1;
 
-		while (low != high) {
+		while (low <= high) {
 			m = (low + high) / 2;
 
 			if (src[m] > e) {// 当前元素大于待查找元素，则在低半区
 				high = m - 1;
-			} else if (src[m] < e) {// 高半区
+			} else if (src[m] <= e) {// 高半区
 				low = m + 1;
-			} else {
-				break;
 			}
 		}
-		return m + 1;
+		return high + 1;
 	}
 
 	@Test
 	public void test() {
 		int[] src = new int[] { 1, 2, 3, 4, 5, 6, 7, 8, 100 };
-		int pos = binarySearch(src, 0, src.length, 5);
+		int pos = binarySearch(src, 0, src.length - 1, 5);
 		Assert.assertEquals(5, pos);
 
-		pos = binarySearch(src, 0, src.length, 15);
+		pos = binarySearch(src, 0, src.length - 1, 15);
+		Assert.assertEquals(src.length - 1, pos);
+
+		pos = binarySearch(src, 0, src.length - 1, -5);
+		Assert.assertEquals(0, pos);
+
+		pos = binarySearch(src, 0, src.length - 1, 999);
 		Assert.assertEquals(src.length, pos);
 
-		pos = binarySearch(src, 0, src.length, -5);
-		Assert.assertEquals(0, pos);
-
-		pos = binarySearch(src, 0, src.length, 9);
-		Assert.assertEquals(0, pos);
+		int[] arr = new int[] { 2, 1, 4, 6, 5, 1000000, 222, 222, 111, 222, 111, 122, 44 };
+		binarySearchInsertSort(arr);
+		Assert.assertArrayEquals(new int[] { 1, 2, 4, 5, 6, 44, 111, 111, 122, 222, 222, 222, 1000000 }, arr);
 	}
-
 }

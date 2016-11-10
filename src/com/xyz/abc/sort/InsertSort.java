@@ -11,7 +11,7 @@ import org.junit.Test;
  *         <p>
  *         特点:
  *         </p>
- *         1. 插入排序是不稳定的排序 <br>
+ *         1. 插入排序是稳定的排序 <br>
  *         2.每一次循环不能保证插入到有序列表的元素放置到了最终位置 <br>
  *         3.time complex : worst O(n^2) best O(n) avg O(n^2) <br>
  *         4.space complex: O(1)
